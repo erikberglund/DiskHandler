@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5331D06A1EFEF74400D7F4D3 /* KextManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5331D0681EFEF74400D7F4D3 /* KextManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5331D06B1EFEF74400D7F4D3 /* KextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5331D0691EFEF74400D7F4D3 /* KextManager.m */; };
 		53AB7A9F1EFE417000E1E570 /* DiskHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 53AB7A9D1EFE417000E1E570 /* DiskHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53AB7AA61EFE425E00E1E570 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AA51EFE425E00E1E570 /* Disk.swift */; };
 		53AB7AAA1EFE427E00E1E570 /* DiskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AA91EFE427E00E1E570 /* DiskHandler.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5331D0681EFEF74400D7F4D3 /* KextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KextManager.h; path = Bridging/KextManager.h; sourceTree = "<group>"; };
+		5331D0691EFEF74400D7F4D3 /* KextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KextManager.m; path = Bridging/KextManager.m; sourceTree = "<group>"; };
 		53AB7A9A1EFE417000E1E570 /* DiskHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DiskHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53AB7A9D1EFE417000E1E570 /* DiskHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiskHandler.h; sourceTree = "<group>"; };
 		53AB7A9E1EFE417000E1E570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -37,6 +41,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5331D05D1EFEF58400D7F4D3 /* Bridging */ = {
+			isa = PBXGroup;
+			children = (
+				5331D0681EFEF74400D7F4D3 /* KextManager.h */,
+				5331D0691EFEF74400D7F4D3 /* KextManager.m */,
+			);
+			name = Bridging;
+			sourceTree = "<group>";
+		};
 		53AB7A901EFE417000E1E570 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +72,7 @@
 				53AB7A9D1EFE417000E1E570 /* DiskHandler.h */,
 				53AB7A9E1EFE417000E1E570 /* Info.plist */,
 				53AB7AA91EFE427E00E1E570 /* DiskHandler.swift */,
+				5331D05D1EFEF58400D7F4D3 /* Bridging */,
 				53AB7AAB1EFE428200E1E570 /* Disk */,
 				53AB7AAC1EFE428B00E1E570 /* DiskImage */,
 			);
@@ -90,6 +104,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5331D06A1EFEF74400D7F4D3 /* KextManager.h in Headers */,
 				53AB7A9F1EFE417000E1E570 /* DiskHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -169,6 +184,7 @@
 				53AB7AAA1EFE427E00E1E570 /* DiskHandler.swift in Sources */,
 				53AB7AAE1EFE42A200E1E570 /* DiskController.swift in Sources */,
 				53AB7AA61EFE425E00E1E570 /* Disk.swift in Sources */,
+				5331D06B1EFEF74400D7F4D3 /* KextManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

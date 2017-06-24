@@ -16,4 +16,4 @@ FOUNDATION_EXPORT const unsigned char DiskHandlerVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <DiskHandler/PublicHeader.h>
 
-
+#import "KextManager.h"
