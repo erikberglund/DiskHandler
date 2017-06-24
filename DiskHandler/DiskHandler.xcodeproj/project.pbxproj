@@ -8,12 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		53AB7A9F1EFE417000E1E570 /* DiskHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 53AB7A9D1EFE417000E1E570 /* DiskHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		53AB7AA61EFE425E00E1E570 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AA51EFE425E00E1E570 /* Disk.swift */; };
+		53AB7AAA1EFE427E00E1E570 /* DiskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AA91EFE427E00E1E570 /* DiskHandler.swift */; };
+		53AB7AAE1EFE42A200E1E570 /* DiskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AAD1EFE42A200E1E570 /* DiskController.swift */; };
+		53AB7AB21EFE431000E1E570 /* DiskImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AB11EFE431000E1E570 /* DiskImage.swift */; };
+		53AB7AB41EFE431D00E1E570 /* DiskImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AB7AB31EFE431D00E1E570 /* DiskImageController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		53AB7A9A1EFE417000E1E570 /* DiskHandler.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DiskHandler.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53AB7A9D1EFE417000E1E570 /* DiskHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiskHandler.h; sourceTree = "<group>"; };
 		53AB7A9E1EFE417000E1E570 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53AB7AA51EFE425E00E1E570 /* Disk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Disk.swift; path = Disk/Disk.swift; sourceTree = "<group>"; };
+		53AB7AA91EFE427E00E1E570 /* DiskHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskHandler.swift; sourceTree = "<group>"; };
+		53AB7AAD1EFE42A200E1E570 /* DiskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskController.swift; path = Disk/DiskController.swift; sourceTree = "<group>"; };
+		53AB7AB11EFE431000E1E570 /* DiskImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskImage.swift; path = DiskImage/DiskImage.swift; sourceTree = "<group>"; };
+		53AB7AB31EFE431D00E1E570 /* DiskImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskImageController.swift; path = DiskImage/DiskImageController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,8 +58,29 @@
 			children = (
 				53AB7A9D1EFE417000E1E570 /* DiskHandler.h */,
 				53AB7A9E1EFE417000E1E570 /* Info.plist */,
+				53AB7AA91EFE427E00E1E570 /* DiskHandler.swift */,
+				53AB7AAB1EFE428200E1E570 /* Disk */,
+				53AB7AAC1EFE428B00E1E570 /* DiskImage */,
 			);
 			path = DiskHandler;
+			sourceTree = "<group>";
+		};
+		53AB7AAB1EFE428200E1E570 /* Disk */ = {
+			isa = PBXGroup;
+			children = (
+				53AB7AA51EFE425E00E1E570 /* Disk.swift */,
+				53AB7AAD1EFE42A200E1E570 /* DiskController.swift */,
+			);
+			name = Disk;
+			sourceTree = "<group>";
+		};
+		53AB7AAC1EFE428B00E1E570 /* DiskImage */ = {
+			isa = PBXGroup;
+			children = (
+				53AB7AB11EFE431000E1E570 /* DiskImage.swift */,
+				53AB7AB31EFE431D00E1E570 /* DiskImageController.swift */,
+			);
+			name = DiskImage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +127,7 @@
 					53AB7A991EFE417000E1E570 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = Y7QFC8672N;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -132,6 +164,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53AB7AB21EFE431000E1E570 /* DiskImage.swift in Sources */,
+				53AB7AB41EFE431D00E1E570 /* DiskImageController.swift in Sources */,
+				53AB7AAA1EFE427E00E1E570 /* DiskHandler.swift in Sources */,
+				53AB7AAE1EFE42A200E1E570 /* DiskController.swift in Sources */,
+				53AB7AA61EFE425E00E1E570 /* Disk.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +276,7 @@
 		53AB7AA31EFE417000E1E570 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -253,6 +291,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.erikberglund.DiskHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -260,6 +299,7 @@
 		53AB7AA41EFE417000E1E570 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -297,6 +337,7 @@
 				53AB7AA41EFE417000E1E570 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
