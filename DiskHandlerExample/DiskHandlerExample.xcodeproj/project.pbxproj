@@ -11,7 +11,25 @@
 		532086C11EFE43A30034F747 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532086C01EFE43A30034F747 /* ViewController.swift */; };
 		532086C31EFE43A30034F747 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 532086C21EFE43A30034F747 /* Assets.xcassets */; };
 		532086C61EFE43A30034F747 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 532086C41EFE43A30034F747 /* Main.storyboard */; };
+		532086D41EFE445E0034F747 /* DiskHandler.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532086D31EFE44520034F747 /* DiskHandler.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		532086D21EFE44520034F747 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 532086CE1EFE44520034F747 /* DiskHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 53AB7A9A1EFE417000E1E570;
+			remoteInfo = DiskHandler;
+		};
+		532086D51EFE44600034F747 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 532086CE1EFE44520034F747 /* DiskHandler.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 53AB7A991EFE417000E1E570;
+			remoteInfo = DiskHandler;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		532086BB1EFE43A30034F747 /* DiskHandlerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiskHandlerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,6 +38,7 @@
 		532086C21EFE43A30034F747 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		532086C51EFE43A30034F747 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		532086C71EFE43A30034F747 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		532086CE1EFE44520034F747 /* DiskHandler.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DiskHandler.xcodeproj; path = ../DiskHandler/DiskHandler.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532086D41EFE445E0034F747 /* DiskHandler.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				532086BD1EFE43A30034F747 /* DiskHandlerExample */,
+				532086CD1EFE443F0034F747 /* Frameworks */,
 				532086BC1EFE43A30034F747 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -61,6 +82,22 @@
 			path = DiskHandlerExample;
 			sourceTree = "<group>";
 		};
+		532086CD1EFE443F0034F747 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				532086CE1EFE44520034F747 /* DiskHandler.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		532086CF1EFE44520034F747 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				532086D31EFE44520034F747 /* DiskHandler.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -75,6 +112,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				532086D61EFE44600034F747 /* PBXTargetDependency */,
 			);
 			name = DiskHandlerExample;
 			productName = DiskHandlerExample;
@@ -109,12 +147,28 @@
 			mainGroup = 532086B21EFE43A30034F747;
 			productRefGroup = 532086BC1EFE43A30034F747 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 532086CF1EFE44520034F747 /* Products */;
+					ProjectRef = 532086CE1EFE44520034F747 /* DiskHandler.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				532086BA1EFE43A30034F747 /* DiskHandlerExample */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		532086D31EFE44520034F747 /* DiskHandler.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DiskHandler.framework;
+			remoteRef = 532086D21EFE44520034F747 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		532086B91EFE43A30034F747 /* Resources */ = {
@@ -139,6 +193,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		532086D61EFE44600034F747 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DiskHandler;
+			targetProxy = 532086D51EFE44600034F747 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		532086C41EFE43A30034F747 /* Main.storyboard */ = {
@@ -291,6 +353,7 @@
 				532086CC1EFE43A30034F747 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
