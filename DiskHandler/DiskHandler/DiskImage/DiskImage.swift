@@ -70,8 +70,7 @@ public class DiskImagePartition {
         
         if let partitionNumber = self.number, let parentDiskImage = diskImage {
             self.parentDiskImage = parentDiskImage
-            
-            if let parentDisk = parentDiskImage.disk(), let parentDiskBSDUnit = parentDisk.mediaBSDUnit() {
+            if let parentDisk = parentDiskImage.disk(), let parentDiskBSDUnit = parentDisk.mediaBSDUnit {
                 let bsdName = "disk\(parentDiskBSDUnit)s\(partitionNumber)"
                 if let matchingDisks = DiskController.shared.disks(matching: [kDADiskDescriptionMediaBSDNameKey as String : bsdName]) {
                     self.disk = matchingDisks.first
@@ -149,7 +148,7 @@ public class DiskImage {
         if let disks = DiskController.shared.disks(matching: [ kDADiskDescriptionDeviceModelKey as String : "Disk Image" ]) {
             var matchingDisks: Set<Disk> = disks
             matchingDisks = Set(matchingDisks.filter({
-                if let url = $0.diskImageURL(), $0.isMediaWhole() {
+                if let url = $0.diskImageURL, $0.isMediaWhole {
                     return url == self.url
                 }
                 return false
@@ -165,7 +164,7 @@ public class DiskImage {
         if self.infoDictionary != nil {
             return self.infoDictionary
         } else if let url = self.url {
-            return DiskImageController().info(url: url)
+            return DiskImageController.shared.info(url: url)
         }
         return nil
     }
@@ -176,15 +175,15 @@ public class DiskImage {
         if self.resourcesDictionary != nil {
             return self.resourcesDictionary
         } else if let url = self.url, !self.isMounted() {
-            return DiskImageController().udifderez(url: url)
+            return DiskImageController.shared.udifderez(url: url)
         }
         return nil
     }
     
     public func isMounted() -> Bool {
-        if let partitions = self.partitions() {
+        if let partitions = self.partitions {
             for partition in partitions {
-                if let partitionDisk = partition.disk, partitionDisk.isVolumeMounted() {
+                if let partitionDisk = partition.disk, partitionDisk.isVolumeMounted {
                     return true
                 }
             }
@@ -198,7 +197,7 @@ public class DiskImage {
     
     public func icon() -> NSImage? {
         if let url = self.url {
-            return NSWorkspace.shared().icon(forFileType: url.pathExtension)
+            return NSWorkspace.shared.icon(forFileType: url.pathExtension)
         }
         return nil
     }
@@ -207,43 +206,43 @@ public class DiskImage {
     
     
     // Checksum Type
-    public func checksumType() -> String? {
+    public var checksumType: String? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Checksum Type"] as? String
     }
     
     // Checksum Value
-    public func checksumValue() -> String? {
+    public var checksumValue: String? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Checksum Value"] as? String
     }
     
     // Class Name
-    public func className() -> String? {
+    public var className: String? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Class Name"] as? String
     }
     
     // Format
-    public func format() -> String? {
+    public var format: String? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Format"] as? String
     }
     
     // Format Description
-    public func formatDescription() -> String? {
+    public var formatDescription: String? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Format Description"] as? String
     }
     
     // Segments
-    public func segments() -> Array<String>? {
+    public var segments: Array<String>? {
         guard let infoDict = self.infoDict() else { return nil }
         return infoDict["Segments"] as? Array<String>
     }
     
     // udif-ordered-chunks
-    public func hasUDIFOrderedChunks() -> Bool {
+    public var hasUDIFOrderedChunks: Bool {
         guard let infoDict = self.infoDict() else { return false }
         return infoDict["udif-ordered-chunks"] as? NSNumber == 1 ? true : false
     }
@@ -253,31 +252,31 @@ public class DiskImage {
     
     
     // partitions:appendable
-    public func isAppendable() -> Bool {
+    public var isAppendable: Bool {
         guard let infoDict = self.infoDict(), let partitions = infoDict["partitions"] as? [String : Any] else { return false }
         return partitions["appendable"] as? NSNumber == 1 ? true : false
     }
     
     // partitions:block-size
-    public func blockSize() -> NSNumber? {
+    public var blockSize: NSNumber? {
         guard let infoDict = self.infoDict(), let partitions = infoDict["partitions"] as? [String : Any] else { return nil }
         return partitions["block-size"] as? NSNumber
     }
     
     // partitions:burnable
-    public func isBurnable() -> Bool {
+    public var isBurnable: Bool {
         guard let infoDict = self.infoDict(), let partitions = infoDict["partitions"] as? [String : Any] else { return false }
         return partitions["burnable"] as? NSNumber == 1 ? true : false
     }
     
     // partitions:partition-scheme
-    public func partitionScheme() -> String? {
+    public var partitionScheme: String? {
         guard let infoDict = self.infoDict(), let partitions = infoDict["partitions"] as? [String : Any] else { return nil }
         return partitions["partition-scheme"] as? String
     }
     
     // partitions:partitions
-    public func partitions() -> Array<DiskImagePartition>? {
+    public var partitions: Array<DiskImagePartition>? {
         var partitionsArray: Array<DiskImagePartition> = []
         guard let infoDict = self.infoDict(),
             let partitionsDict = infoDict["partitions"] as? [String : Any],
@@ -297,43 +296,43 @@ public class DiskImage {
     
     
     // Properties:Checksummed
-    public func isChecksummed() -> Bool {
+    public var isChecksummed: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Checksummed"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Compressed
-    public func isCompressed() -> Bool {
+    public var isCompressed: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Compressed"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Encrypted
-    public func isEncrypted() -> Bool {
+    public var isEncrypted: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Encrypted"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Kernel Compatible
-    public func isKernelCompatible() -> Bool {
+    public var isKernelCompatible: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Kernel Compatible"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Partitioned
-    public func isPartitioned() -> Bool {
+    public var isPartitioned: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Partitioned"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Software License Agreement
-    public func hasSoftwareLicenseAgreement() -> Bool {
+    public var hasSoftwareLicenseAgreement: Bool {
         guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
         return properties["Software License Agreement"] as? NSNumber == 1 ? true : false
     }
     
     // Properties:Software License Agreement Text
-    public func softwareLicenseAgreementText() -> String? {
+    public var softwareLicenseAgreementText: String? {
         if let resourcesDict = self.resourcesDict() {
             print("resourcesDict: \(resourcesDict)")
         }
@@ -344,100 +343,56 @@ public class DiskImage {
     
     
     // Size Information:CUDIFEncoding-bytes-in-use
-    public func cudifEncodingBytesInUse() -> NSNumber? {
+    public var cudifEncodingBytesInUse: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["CUDIFEncoding-bytes-in-use"] as? NSNumber
     }
     
     // Size Information:CUDIFEncoding-bytes-total
-    public func cudifEncodingBytesTotal() -> NSNumber? {
+    public var cudifEncodingBytesTotal: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["CUDIFEncoding-bytes-total"] as? NSNumber
     }
     
     // Size Information:CUDIFEncoding-bytes-wasted
-    public func cudifEncodingBytesWasted() -> NSNumber? {
+    public var cudifEncodingBytesWasted: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["CUDIFEncoding-bytes-wasted"] as? NSNumber
     }
     
     // Size Information:Compressed Bytes
-    public func compressedBytes() -> NSNumber? {
+    public var compressedBytes: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Compressed Bytes"] as? NSNumber
     }
     
     // Size Information:Compressed Ratio
-    public func compressedRatio() -> NSNumber? {
+    public var compressedRatio: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Compressed Ratio"] as? NSNumber
     }
     
     // Size Information:Sector Count
-    public func sectorCount() -> NSNumber? {
+    public var sectorCount: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Sector Count"] as? NSNumber
     }
     
     // Size Information:Total Bytes
-    public func totalBytes() -> NSNumber? {
+    public var totalBytes: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Total Bytes"] as? NSNumber
     }
     
     // Size Information:Total Empty Bytes
-    public func totalEmptyBytes() -> NSNumber? {
+    public var totalEmptyBytes: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Total Empty Bytes"] as? NSNumber
     }
     
     // Size Information:Total Non-Empty Bytes
-    public func totalNonEmptyBytes() -> NSNumber? {
+    public var totalNonEmptyBytes: NSNumber? {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Total Non-Empty Bytes"] as? NSNumber
-    }
-    
-    
-    /* PRINT VALUES */
-    
-    
-    public func printValues() {
-        
-        print("\n** ROOT ITEMS **")
-        print("Checksum Type: \(String(describing: self.checksumType()))")
-        print("Checksum Value: \(String(describing: self.checksumValue()))")
-        print("Class Name: \(String(describing: self.className()))")
-        print("Format: \(String(describing: self.format()))")
-        print("Format Description: \(String(describing: self.formatDescription()))")
-        print("Segments: \(String(describing: self.segments()))")
-        print("UDIF Ordered Chunks: \(String(describing: self.hasUDIFOrderedChunks()))")
-        
-        print("\n** PARTITIONS **")
-        print("Appendable: \(String(describing: self.isAppendable()))")
-        print("Block Size: \(String(describing: self.blockSize()))")
-        print("Burnable: \(String(describing: self.isBurnable()))")
-        print("Partition Scheme: \(String(describing: self.partitionScheme()))")
-        print("Partitions: \(String(describing: self.partitions()))")
-        
-        print("\n** PROPERTIES **")
-        print("Checksummed: \(String(describing: self.isChecksummed()))")
-        print("Compressed: \(String(describing: self.isCompressed()))")
-        print("Encrypted: \(String(describing: self.isEncrypted()))")
-        print("Kernel Compatible: \(String(describing: self.isKernelCompatible()))")
-        print("Partitioned: \(String(describing: self.isPartitioned()))")
-        print("Software License Agreement: \(String(describing: self.hasSoftwareLicenseAgreement()))")
-        print("Software License Agreement Text: \(String(describing: self.softwareLicenseAgreementText()))")
-        
-        print("\n** SIZE INFORMATION **")
-        print("CUDIFEncoding-bytes-in-use: \(String(describing: self.cudifEncodingBytesInUse()))")
-        print("CUDIFEncoding-bytes-total: \(String(describing: self.cudifEncodingBytesTotal()))")
-        print("CUDIFEncoding-bytes-wasted: \(String(describing: self.cudifEncodingBytesWasted()))")
-        print("Compressed Bytes: \(String(describing: self.compressedBytes()))")
-        print("Compressed Ratio: \(String(describing: self.compressedRatio()))")
-        print("Sector Count: \(String(describing: self.sectorCount()))")
-        print("Total Bytes: \(String(describing: self.totalBytes()))")
-        print("Total Empty Bytes: \(String(describing: self.totalEmptyBytes()))")
-        print("Total Non-Empty Bytes: \(String(describing: self.totalNonEmptyBytes()))")
-        
     }
 }

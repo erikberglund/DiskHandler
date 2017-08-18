@@ -8,13 +8,11 @@
 
 import Foundation
 
-public class DiskImageController {
+final class DiskImageController {
 
-    static let shared = DiskController()
+    static let shared = DiskImageController()
     
-    init() {
-        
-    }
+    private init() {}
     
     // Set<DiskImage>? requires Hashable
     public func disks() -> Bool {
@@ -41,14 +39,12 @@ public class DiskImageController {
                 IOObjectRelease(service);
             }
         }
-        
         return false
-        
     }
     
     public func attach(url: URL, options: [String]?) -> [String : Any]? {
         
-        // FIXME: Verify path exist and is a disk image
+        guard url.fileExists, url.fileIsDiskImage else { return nil }
         
         var args: [String] = [ "attach", url.absoluteString ]
 
@@ -72,8 +68,8 @@ public class DiskImageController {
     }
     
     public func detach(devName: String, force: Bool) -> [String : Any]? {
-        
-        // FIXME: Verify path exist and is a disk image
+        Swift.print("devName: \(devName)")
+        guard FileManager.default.fileExists(atPath: devName) else { return nil }
         
         var args: [String] = [ "detach", devName ]
         
@@ -93,7 +89,7 @@ public class DiskImageController {
     
     public func info(url: URL) -> [String : Any]? {
         
-        // FIXME: Verify path exist and is a disk image
+        guard url.fileExists, url.fileIsDiskImage else { return nil }
         
         let (stdOutDict, stdErr, exitCode) = runCommand(command: "/usr/bin/hdiutil", arguments: [ "imageinfo", url.absoluteString, "-plist" ])
         if exitCode == 0 {
@@ -107,7 +103,7 @@ public class DiskImageController {
     
     public func udifderez(url: URL) -> [String : Any]? {
         
-        // FIXME: Verify path exist and is a disk image
+        guard url.fileExists, url.fileIsDiskImage else { return nil }
         
         let (stdOutDict, stdErr, exitCode) = runCommand(command: "/usr/bin/hdiutil", arguments: [ "udifderez", "-xml", url.absoluteString ])
         if exitCode == 0 {
@@ -119,8 +115,20 @@ public class DiskImageController {
             return nil
         }
     }
+}
+
+extension URL {
+    var fileExists: Bool {
+        return FileManager.default.fileExists(atPath: self.path)
+    }
     
+    var fileIsDiskImage: Bool {
+        if let typeIdentifier = self.typeIdentifier { return typeIdentifier.hasPrefix("com.apple.disk-image") } else { return false }
+    }
     
+    var typeIdentifier: String? {
+        return (try? resourceValues(forKeys: [.typeIdentifierKey]))?.typeIdentifier
+    }
 }
 
 private func runCommand(command: String, arguments: Array<String>) -> (stdOutDict: Dictionary<String, Any>, stdErr: [String], exitCode: Int32) {

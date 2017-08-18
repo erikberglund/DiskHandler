@@ -320,7 +320,7 @@ public class DiskController {
     fileprivate func insert(disk: Disk) {
         availableDisks.insert(disk)
         
-        if !disk.isMediaWhole() {
+        if !disk.isMediaWhole {
             guard let parentDiskRef = DADiskCopyWholeDisk(disk.diskRef) else {
                 return
             }
@@ -334,8 +334,8 @@ public class DiskController {
             }
             
             disk.parent!.addChild(disk: disk)
-        } else if disk.isCoreStorage() {
-            guard let devicePath = disk.devicePath() else {
+        } else if disk.isCoreStorage {
+            guard let devicePath = disk.devicePath else {
                 return
             }
             
