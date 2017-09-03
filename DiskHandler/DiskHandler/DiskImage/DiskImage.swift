@@ -78,37 +78,27 @@ public class DiskImagePartition {
             }
         }
     }
-    
-    public func printValues() {
-        
-        print("\n** PARTITION INFO **")
-        print("Partition Data: \(String(describing: self.data))")
-        print("Partition Filesystems: \(String(describing: self.fileSystems))")
-        print("Partition Hint: \(String(describing: self.hint))")
-        print("Partition Hint UUID: \(String(describing: self.hintUUID))")
-        print("Partition Length: \(String(describing: self.length))")
-        print("Partition Name: \(String(describing: self.name))")
-        print("Partition Number: \(String(describing: self.number))")
-        print("Partition Start: \(String(describing: self.start))")
-        print("Partition Synthesized: \(String(describing: self.synthesized))")
-        print("Partition UUID: \(String(describing: self.partitionUUID))")
-    }
 }
 
-public class DiskImage {
+public class DiskImage: Hashable, Equatable {
     
     public var url: URL?
     
+    private var ioDeviceDictionary: [String: Any]?
     private var infoDictionary: [String : Any]?
     private var resourcesDictionary: [String : Any]?
     
-    init(url: URL) {
+    // Conforming to Hashable
+    public var hashValue: Int {
+        return (self.url?.hashValue)!
+    }
+    
+    public init(url: URL) {
         self.url = url
         
         if let infoDict = self.infoDict() {
             self.infoDictionary = infoDict
         }
-        
         
         if let resourcesDict = self.resourcesDict() {
             self.resourcesDictionary = resourcesDict
@@ -187,6 +177,8 @@ public class DiskImage {
                     return true
                 }
             }
+        } else if let url = self.url {
+            return DiskImageController.shared.isMounted(url: url)
         }
         return false
     }
@@ -278,9 +270,13 @@ public class DiskImage {
     // partitions:partitions
     public var partitions: Array<DiskImagePartition>? {
         var partitionsArray: Array<DiskImagePartition> = []
-        guard let infoDict = self.infoDict(),
+        guard
+            let infoDict = self.infoDict(),
             let partitionsDict = infoDict["partitions"] as? [String : Any],
-            let partitionsDictArray = partitionsDict["partitions"] as? Array<[String : Any]> else { return nil }
+            let partitionsDictArray = partitionsDict["partitions"] as? Array<[String : Any]>
+            else {
+                return nil
+        }
         for partitionDict in partitionsDictArray {
             let partition = DiskImagePartition.init(partitionInfo: partitionDict, diskImage: self)
             
@@ -308,10 +304,21 @@ public class DiskImage {
     }
     
     // Properties:Encrypted
-    public var isEncrypted: Bool {
-        guard let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] else { return false }
-        return properties["Encrypted"] as? NSNumber == 1 ? true : false
-    }
+    // NOTE: This might be wrong to use a lazy var if a DiskImage can change encryption state
+    //       A fix might be to use the invalidate method to invalidate info that can change if the file has changed. Need to implement that.
+    public lazy var isEncrypted: Bool = {
+        if let infoDict = self.infoDict(), let properties = infoDict["Properties"] as? [String : Any] {
+            return properties["Encrypted"] as? NSNumber == 1 ? true : false
+        } else if
+            let url = self.url,
+            let isEncryptedDict = DiskImageController.shared.isEncrypted(url: url),
+            let isEncrypted = isEncryptedDict["encrypted"] as? Bool {
+            return isEncrypted
+        } else {
+            // FIXME: This is not correct, how to check this? URL can't be required, so what is the next fallback. IOKit probably
+            return false
+        }
+    }()
     
     // Properties:Kernel Compatible
     public var isKernelCompatible: Bool {
@@ -395,4 +402,9 @@ public class DiskImage {
         guard let infoDict = self.infoDict(), let sizeInfo = infoDict["Size Information"] as? [String : Any] else { return nil }
         return sizeInfo["Total Non-Empty Bytes"] as? NSNumber
     }
+}
+
+// Conforming to Equatable
+public func ==(lhs: DiskImage, rhs: DiskImage) -> Bool {
+    return lhs.url == rhs.url
 }

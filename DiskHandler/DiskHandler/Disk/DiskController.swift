@@ -12,9 +12,9 @@ import Foundation
 private var session : DASession?
 private var availableDisks = Set<Disk>()
 
-public var approvalMatchMount = Array<Dictionary<String, Any>>()
-public var approvalMatchUnmount = Array<Dictionary<String, Any>>()
-public var approvalMatchEject = Array<Dictionary<String, Any>>()
+public var approvalMatchMount = [Dictionary<String, Any>]()
+public var approvalMatchUnmount = [Dictionary<String, Any>]()
+public var approvalMatchEject = [Dictionary<String, Any>]()
 
 // MARK: DiskControllerDelegate
 
@@ -40,8 +40,6 @@ public class DiskController {
     
     public weak var delegate: DiskControllerDelegate?
     public weak var mountDelegate: DiskControllerMountDelegate?
-    public weak var parent: Disk?
-    public var children: Set<Disk>?
     
     // MARK: -
     // MARK: Init / Deinit

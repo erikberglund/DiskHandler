@@ -27,7 +27,7 @@
 		53AB7AA51EFE425E00E1E570 /* Disk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Disk.swift; path = Disk/Disk.swift; sourceTree = "<group>"; };
 		53AB7AAD1EFE42A200E1E570 /* DiskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskController.swift; path = Disk/DiskController.swift; sourceTree = "<group>"; };
 		53AB7AB11EFE431000E1E570 /* DiskImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskImage.swift; path = DiskImage/DiskImage.swift; sourceTree = "<group>"; };
-		53AB7AB31EFE431D00E1E570 /* DiskImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiskImageController.swift; path = DiskImage/DiskImageController.swift; sourceTree = "<group>"; };
+		53AB7AB31EFE431D00E1E570 /* DiskImageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.swift; name = DiskImageController.swift; path = DiskImage/DiskImageController.swift; sourceTree = "<group>"; };
 		53ACA2BA1F0AC7FE0019CCC6 /* DiskArbitrationBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DiskArbitrationBridge.h; path = Bridging/DiskArbitrationBridge.h; sourceTree = "<group>"; };
 		53ACA2BC1F0AC8570019CCC6 /* DiskArbitrationBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiskArbitrationBridge.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -320,6 +320,7 @@
 				INFOPLIST_FILE = DiskHandler/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.erikberglund.DiskHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -344,6 +345,7 @@
 				INFOPLIST_FILE = DiskHandler/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.erikberglund.DiskHandler;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

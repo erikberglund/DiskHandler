@@ -57,9 +57,6 @@ public class Disk: Hashable, Equatable {
         if
             KERN_SUCCESS == IORegistryEntryCreateCFProperties(service, &cfProperties, kCFAllocatorDefault, IOOptionBits(kIORegistryIterateRecursively)),
             let properties = cfProperties?.takeUnretainedValue() as? [String : Any] {
-            
-            // FIXME: Print properties
-            // print("properties: \(properties)")
             return properties
         } else {
             return nil
