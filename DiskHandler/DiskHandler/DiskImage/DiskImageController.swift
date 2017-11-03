@@ -221,7 +221,6 @@ public class DiskImageController {
       var args = arguments
       if let pass = password, let passwordData = pass.data(using: .utf8) {
          if !args.contains("-stdinpass") { args.append("-stdinpass") }
-         Swift.print("Sending password: \(pass)")
          let stdInPipe = Pipe()
          task.standardInput = stdInPipe
          stdInPipe.fileHandleForWriting.write(passwordData)
@@ -255,7 +254,7 @@ public class DiskImageController {
             }
          }
       }
-      Swift.print("Running: \(task.launchPath) with: \(args)")
+      
       task.arguments = args
       task.launch()
       
