@@ -132,9 +132,9 @@ public class DiskImageController {
       }
    }
    
-   public func detach(devName: String, force: Bool) -> [String : Any]? {
-      Swift.print("devName: \(devName)")
-      guard FileManager.default.fileExists(atPath: devName) else { return nil }
+   public func detach(devName: String, force: Bool) -> (Int32, [String : Any]?) {
+      
+      guard FileManager.default.fileExists(atPath: devName) else { return (-1, nil) }
       
       var args: [String] = [ "detach", devName ]
       
@@ -144,11 +144,11 @@ public class DiskImageController {
       
       let (stdOutDict, stdErr, exitCode) = hdiutil(arguments: args, password: nil)
       if exitCode == 0 {
-         return stdOutDict as? [String : Any]
+         return (exitCode, stdOutDict as? [String : Any])
       } else {
          print("stdErr: \(stdErr)")
          print("exitCode: \(exitCode)")
-         return nil
+         return (exitCode, nil)
       }
    }
    
